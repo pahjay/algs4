@@ -1,0 +1,659 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Findbugs:     PASSED
+Checkstyle:   FAILED (3 warnings)
+
+Correctness:  20/26 tests passed
+Memory:       4/8 tests passed
+Timing:       9/9 tests passed
+
+Aggregate score: 81.15%
+[Compilation: 5%, API: 5%, Findbugs: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+3.3K Jan 11 01:25 Percolation.java
+2.5K Jan 11 01:25 PercolationStats.java
+
+
+********************************************************************************
+*  COMPILING                                                                   *
+********************************************************************************
+
+
+% javac Percolation.java
+*-----------------------------------------------------------
+
+% javac PercolationStats.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Percolation:
+
+PercolationStats:
+
+================================================================
+
+
+% findbugs *.class
+*-----------------------------------------------------------
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+Percolation.java:37:11: 'if' is not followed by whitespace. [WhitespaceAfter]
+Percolation.java:37:36: Boolean expression can be simplified, e.g., use 'if (!isEmpty)' instead of 'if (isEmpty == false)'. [SimplifyBooleanExpression]
+Percolation.java:37:45: '{' is not preceded with whitespace. [WhitespaceAround]
+Checkstyle ends with 3 errors.
+
+================================================================
+
+
+******************************************************************************
+*  TESTING CORRECTNESS
+******************************************************************************
+
+Testing correctness of Percolation
+*-----------------------------------------------------------
+Running 15 total tests.
+
+Tests 1 through 8 create a Percolation object using your code, then repeatedly
+open sites by calling open(). After each call to open(), we check the return
+values of isOpen(), percolates(), numberOfOpenSites(), and isFull() in that order.
+Except as noted, a site is opened at most once.
+
+Test 1: open predetermined list of sites using file inputs
+  *  filename = input6.txt
+  *  filename = input8.txt
+  *  filename = input8-no.txt
+  *  filename = input10-no.txt
+  *  filename = greeting57.txt
+  *  filename = heart25.txt
+==> passed
+
+Test 2: open random sites until just before system percolates
+  *  n = 3
+  *  n = 5
+  *  n = 10
+  *  n = 10
+  *  n = 20
+  *  n = 20
+  *  n = 50
+  *  n = 50
+==> passed
+
+Test 3: open predetermined sites for n = 1 and n = 2
+  *  filename = input1.txt
+  *  filename = input1-no.txt
+  *  filename = input2.txt
+  *  filename = input2-no.txt
+==> passed
+
+Test 4: check for backwash with predetermined sites
+  *  filename = input20.txt
+  *  filename = input10.txt
+  *  filename = input50.txt
+  *  filename = jerry47.txt
+==> passed
+
+Test 5: check for backwash with predetermined sites that have
+        multiple percolating paths
+  *  filename = input3.txt
+  *  filename = input4.txt
+  *  filename = input7.txt
+==> passed
+
+Test 6: open predetermined sites with long percolating path
+  *  filename = snake13.txt
+  *  filename = snake101.txt
+==> passed
+
+Test 7: open every site
+  *  filename = input5.txt
+==> passed
+
+Test 8: open random sites until just before system percolates,
+        allowing open() to be called on a site more than once
+  *  n = 3
+  *  n = 5
+  *  n = 10
+  *  n = 10
+  *  n = 20
+  *  n = 20
+  *  n = 50
+  *  n = 50
+==> passed
+
+Test 9: check that IndexOutOfBoundsException is thrown if (col, row) is out of bounds
+  *  n = 10, (col, row) = (0, 6)
+  *  n = 10, (col, row) = (12, 6)
+  *  n = 10, (col, row) = (11, 6)
+  *  n = 10, (col, row) = (6, 0)
+  *  n = 10, (col, row) = (6, 12)
+  *  n = 10, (col, row) = (6, 11)
+==> passed
+
+Test 10: check that IllegalArgumentException is thrown if n <= 0 in constructor
+  *  n = -10
+  *  n = -1
+  *  n = 0
+==> passed
+
+Test 11: create multiple Percolation objects at the same time
+         (to make sure you didn't store data in static variables)
+==> passed
+
+Test 12: open predetermined list of sites using file inputs,
+         but change the order in which methods are called
+  *  filename = input8.txt;  order =     isFull(),     isOpen(), percolates()
+  *  filename = input8.txt;  order =     isFull(), percolates(),     isOpen()
+  *  filename = input8.txt;  order =     isOpen(),     isFull(), percolates()
+  *  filename = input8.txt;  order =     isOpen(), percolates(),     isFull()
+  *  filename = input8.txt;  order = percolates(),     isOpen(),     isFull()
+  *  filename = input8.txt;  order = percolates(),     isFull(),     isOpen()
+==> passed
+
+Test 13: call all methods in random order until just before system percolates
+  *  n = 3
+  *  n = 5
+  *  n = 7
+  *  n = 10
+  *  n = 20
+  *  n = 50
+==> passed
+
+Test 14: call all methods in random order until almost all sites are open,
+         but with inputs not prone to backwash
+  *  n = 3
+  *  n = 5
+  *  n = 7
+  *  n = 10
+  *  n = 20
+  *  n = 50
+==> passed
+
+Test 15: call all methods in random order until all sites are open,
+         allowing open() to be called on a site more than once
+         (these inputs are prone to backwash)
+  *  n = 3
+  *  n = 5
+  *  n = 7
+  *  n = 10
+  *  n = 20
+  *  n = 50
+==> passed
+
+
+Total: 15/15 tests passed!
+
+
+================================================================
+******************************************************************************
+*  TESTING CORRECTNESS (substituting reference Percolation)
+******************************************************************************
+
+Testing correctness of PercolationStats
+*-----------------------------------------------------------
+Running 11 total tests.
+
+Test 1: Test that PercolationStats creates trials Percolation objects, each of size n-by-n
+  * n =  20, trials =  10
+mean                    = 242.1
+stddev                  = 27.786687460005016
+95% confidence interval = 236.65380925783901, 247.54619074216097
+  * n =  50, trials =  20
+mean                    = 1484.55
+stddev                  = 62.84272348280939
+95% confidence interval = 1478.3914130986846, 1490.7085869013154
+  * n = 100, trials =  50
+mean                    = 5934.98
+stddev                  = 126.29678199723514
+95% confidence interval = 5930.029166145708, 5939.930833854291
+  * n =  64, trials = 150
+mean                    = 2442.36
+stddev                  = 89.73991353091951
+95% confidence interval = 2441.187398463196, 2443.532601536804
+==> passed
+
+Test 2: Test that PercolationStats calls open() until system percolates
+  * n =  20, trials =  10
+mean                    = 236.2
+stddev                  = 25.952092615261513
+95% confidence interval = 231.11338984740874, 241.28661015259124
+  * n =  50, trials =  20
+mean                    = 1522.0
+stddev                  = 56.653145961794756
+95% confidence interval = 1516.4479916957441, 1527.5520083042559
+  * n = 100, trials =  50
+mean                    = 5916.66
+stddev                  = 111.49899056923871
+95% confidence interval = 5912.289239569685, 5921.030760430314
+  * n =  64, trials = 150
+mean                    = 2442.0266666666666
+stddev                  = 87.77663435761188
+95% confidence interval = 2440.879718644394, 2443.1736146889393
+==> passed
+
+Test 3: Test that PercolationStats does not call open() after system percolates
+  * n =  20, trials =  10
+mean                    = 231.7
+stddev                  = 18.48152230382191
+95% confidence interval = 228.07762162845088, 235.3223783715491
+  * n =  50, trials =  20
+mean                    = 1517.65
+stddev                  = 66.61537281091236
+95% confidence interval = 1511.1216934645306, 1524.1783065354696
+  * n = 100, trials =  50
+mean                    = 5909.86
+stddev                  = 160.1322170544563
+95% confidence interval = 5903.582817091465, 5916.137182908535
+  * n =  64, trials = 150
+mean                    = 2429.6066666666666
+stddev                  = 87.31981614059741
+95% confidence interval = 2428.465687735763, 2430.74764559757
+==> passed
+
+Test 4: Test that mean() is consistent with the number of intercepted calls to open()
+        on blocked sites
+  * n =  20, trials =  10
+mean                    = 245.7
+stddev                  = 17.295150251507568
+95% confidence interval = 242.3101505507045, 249.08984944929549
+    - PercolationStats mean = 245.7
+    - total calls to open() / (N*N*T) = 0.61425
+  * n =  50, trials =  20
+mean                    = 1464.05
+stddev                  = 76.75146149817124
+95% confidence interval = 1456.5283567731792, 1471.5716432268207
+    - PercolationStats mean = 1464.05
+    - total calls to open() / (N*N*T) = 0.5856199999999999
+  * n = 100, trials =  50
+mean                    = 5933.38
+stddev                  = 152.38751488844994
+95% confidence interval = 5927.406409416373, 5939.353590583627
+    - PercolationStats mean = 5933.38
+    - total calls to open() / (N*N*T) = 0.5933380000000001
+  * n =  64, trials = 150
+mean                    = 2422.66
+stddev                  = 96.00879643703793
+95% confidence interval = 2421.405485059889, 2423.9145149401106
+    - PercolationStats mean = 2422.66
+    - total calls to open() / (N*N*T) = 0.5914697265625
+==> FAILED
+
+Test 5: Test that stddev() is consistent with the number of intercepted calls to open()
+        on blocked sites
+  * n =  20, trials =  10
+mean                    = 240.4
+stddev                  = 22.93565879682649
+95% confidence interval = 235.90461087582202, 244.895389124178
+    - student PercolationStats stddev()           = 22.93565879682649
+    - anticipated stddev   from intercepted calls = 0.057339146992066235
+    - anticipated variance from intercepted calls = 0.003287777777777779
+  * n =  50, trials =  20
+mean                    = 1492.45
+stddev                  = 61.82443308527615
+95% confidence interval = 1486.391205557643, 1498.5087944423572
+    - student PercolationStats stddev()           = 61.82443308527615
+    - anticipated stddev   from intercepted calls = 0.024729773234110457
+    - anticipated variance from intercepted calls = 6.11561684210526E-4
+  * n = 100, trials =  50
+mean                    = 5904.66
+stddev                  = 169.16332043203647
+95% confidence interval = 5898.028797839064, 5911.291202160935
+    - student PercolationStats stddev()           = 169.16332043203647
+    - anticipated stddev   from intercepted calls = 0.016916332043203648
+    - anticipated variance from intercepted calls = 2.8616228979591856E-4
+  * n =  64, trials = 150
+mean                    = 2427.6866666666665
+stddev                  = 84.148888236856
+95% confidence interval = 2426.587121193705, 2428.786212139628
+    - student PercolationStats stddev()           = 84.148888236856
+    - anticipated stddev   from intercepted calls = 0.02054416216720117
+    - anticipated variance from intercepted calls = 4.2206259915225994E-4
+==> FAILED
+
+Test 6: Test that confidenceLo() and confidenceHigh() are consistent with mean() and stddev()
+  * n =  20, trials =  10
+mean                    = 245.3
+stddev                  = 18.797458457047973
+95% confidence interval = 241.6156981424186, 248.9843018575814
+    - PercolationStats confidence low = 241.6156981424186
+    - PercolationStats mean = 245.3
+    - PercolationStats stddev = 18.797458457047973
+    - T = 10
+    - student T = 10
+    - mean - 1.96 * stddev / sqrt(T)  = 233.64921454245348
+  * n =  50, trials =  20
+mean                    = 1460.5
+stddev                  = 77.88148891610557
+95% confidence interval = 1452.8676140862217, 1468.1323859137783
+    - PercolationStats confidence low = 1452.8676140862217
+    - PercolationStats mean = 1460.5
+    - PercolationStats stddev = 77.88148891610557
+    - T = 20
+    - student T = 20
+    - mean - 1.96 * stddev / sqrt(T)  = 1426.3669325325595
+  * n = 100, trials =  50
+mean                    = 5944.82
+stddev                  = 156.7363169824546
+95% confidence interval = 5938.675936374288, 5950.964063625712
+    - PercolationStats confidence low = 5938.675936374288
+    - PercolationStats mean = 5944.82
+    - PercolationStats stddev = 156.7363169824546
+    - T = 50
+    - student T = 50
+    - mean - 1.96 * stddev / sqrt(T)  = 5901.374909462173
+  * n =  64, trials = 150
+mean                    = 2437.9733333333334
+stddev                  = 87.55170642277139
+95% confidence interval = 2436.8293243694093, 2439.1173422972574
+    - PercolationStats confidence low = 2436.8293243694093
+    - PercolationStats mean = 2437.9733333333334
+    - PercolationStats stddev = 87.55170642277139
+    - T = 150
+    - student T = 150
+    - mean - 1.96 * stddev / sqrt(T)  = 2423.9621422194114
+==> FAILED
+
+Test 7: Check whether exception is thrown if either n or trials is out of bounds
+  * n = -23, trials =  42
+  * n =  23, trials =   0
+mean                    = NaN
+stddev                  = NaN
+95% confidence interval = NaN, NaN
+    - java.lang.IllegalArgumentException not thrown for PercolationStats()
+  * n = -42, trials =   0
+mean                    = NaN
+stddev                  = NaN
+95% confidence interval = NaN, NaN
+    - java.lang.IllegalArgumentException not thrown for PercolationStats()
+  * n =  42, trials =  -1
+    - java.lang.IllegalArgumentException not thrown for PercolationStats()
+==> FAILED
+
+Test 8: Create two PercolationStats objects at the same time and check mean()
+        (to make sure you didn't store data in static variables)
+  * n1 =  50, trials1 =  10, n2 =  50, trials2 =   5
+mean                    = 1465.7
+stddev                  = 64.18038814328114
+95% confidence interval = 1453.120643923917, 1478.279356076083
+mean                    = 1514.6
+stddev                  = 29.51779124528121
+95% confidence interval = 1503.0290258318496, 1526.1709741681502
+    - PercolationStats object 1 mean = 1465.7
+    - total calls to open() / (N1*N1*T1)  = 0.58628
+  * n1 =  50, trials1 =   5, n2 =  50, trials2 =  10
+mean                    = 1426.4
+stddev                  = 38.246568473524526
+95% confidence interval = 1411.4073451583786, 1441.3926548416216
+mean                    = 1492.7
+stddev                  = 60.98096242088819
+95% confidence interval = 1480.747731365506, 1504.652268634494
+    - PercolationStats object 1 mean = 1426.4
+    - total calls to open() / (N1*N1*T1)  = 0.5705600000000001
+  * n1 =  50, trials1 =  10, n2 =  25, trials2 =  10
+mean                    = 1476.3
+stddev                  = 33.486481517837085
+95% confidence interval = 1469.7366496225038, 1482.863350377496
+mean                    = 366.6
+stddev                  = 40.02554739718677
+95% confidence interval = 358.75499271015144, 374.4450072898486
+    - PercolationStats object 1 mean = 1476.3
+    - total calls to open() / (N1*N1*T1)  = 0.59052
+  * n1 =  25, trials1 =  10, n2 =  50, trials2 =  10
+mean                    = 373.1
+stddev                  = 22.961078178324097
+95% confidence interval = 368.5996286770485, 377.60037132295156
+mean                    = 1487.0
+stddev                  = 65.07260901826854
+95% confidence interval = 1474.2457686324194, 1499.7542313675806
+    - PercolationStats object 1 mean = 373.1
+    - total calls to open() / (N1*N1*T1)  = 0.5969599999999999
+  * n1 =  50, trials1 =  10, n2 =  15, trials2 = 100
+mean                    = 1457.4
+stddev                  = 71.3305295399133
+95% confidence interval = 1443.4192162101772, 1471.380783789823
+mean                    = 134.43
+stddev                  = 12.979591595262077
+95% confidence interval = 134.17560000473287, 134.68439999526714
+    - PercolationStats object 1 mean = 1457.4
+    - total calls to open() / (N1*N1*T1)  = 0.5829600000000001
+  * n1 =  15, trials1 = 100, n2 =  50, trials2 =  10
+mean                    = 134.31
+stddev                  = 12.595249224620487
+95% confidence interval = 134.06313311519745, 134.55686688480256
+mean                    = 1473.5
+stddev                  = 91.08024544933501
+95% confidence interval = 1455.6482718919303, 1491.3517281080697
+    - PercolationStats object 1 mean = 134.31
+    - total calls to open() / (N1*N1*T1)  = 0.5969333333333332
+==> FAILED
+
+Test 9: Check that the methods return the same value, regardless of
+        the order in which they are called
+  * n =  20, trials =  10
+mean                    = 240.9
+stddev                  = 20.223473709748504
+95% confidence interval = 236.9361991528893, 244.86380084711072
+  * n =  50, trials =  20
+mean                    = 1483.05
+stddev                  = 53.18040299920539
+95% confidence interval = 1477.838320506078, 1488.261679493922
+  * n = 100, trials =  50
+mean                    = 5909.84
+stddev                  = 160.94077501125838
+95% confidence interval = 5903.531121619559, 5916.148878380442
+  * n =  64, trials = 150
+mean                    = 2426.4
+stddev                  = 90.13807454800374
+95% confidence interval = 2425.222195825906, 2427.577804174094
+==> passed
+
+Test 10: Check for any calls to StdRandom.setSeed()
+  * n = 20, trials = 10
+mean                    = 238.0
+stddev                  = 28.763402673072832
+95% confidence interval = 232.36237307607772, 243.63762692392228
+  * n = 20, trials = 10
+mean                    = 229.2
+stddev                  = 16.745148551147583
+95% confidence interval = 225.91795088397507, 232.4820491160249
+  * n = 40, trials = 10
+mean                    = 962.9
+stddev                  = 45.37363404739217
+95% confidence interval = 954.0067677267111, 971.7932322732888
+  * n = 80, trials = 10
+mean                    = 3764.4
+stddev                  = 84.51061734743419
+95% confidence interval = 3747.835918999903, 3780.9640810000974
+==> passed
+
+Test 11: Check distribution of number of sites opened until percolation
+  * n = 2, trials = 100000
+mean                    = 2.0
+stddev                  = NaN
+95% confidence interval = NaN, NaN
+    - mean() must return a value between 0.0 and 1.0
+    - mean() =  2.0
+  * n = 3, trials = 100000
+mean                    = 4.0
+stddev                  = NaN
+95% confidence interval = NaN, NaN
+    - mean() must return a value between 0.0 and 1.0
+    - mean() =  4.0
+  * n = 4, trials = 100000
+mean                    = 11.0
+stddev                  = NaN
+95% confidence interval = NaN, NaN
+    - mean() must return a value between 0.0 and 1.0
+    - mean() =  11.0
+==> FAILED
+
+
+Total: 5/11 tests passed!
+
+
+================================================================
+******************************************************************************
+*  MEMORY (substituting reference Percolation)
+******************************************************************************
+
+Computing memory of PercolationStats
+*-----------------------------------------------------------
+Running 4 total tests.
+
+Test 1a-1d: Memory usage as a function of trials for n = 100
+            (max allowed: 8*trials + 128 bytes)
+
+            trials        bytes
+--------------------------------------------
+mean                    = 5948.3125
+stddev                  = 171.44395342696302
+95% confidence interval = 5927.310615705197, 5969.314384294803
+=> FAILED       16       180752 (706.1x)
+mean                    = 5923.125
+stddev                  = 171.96206445871493
+95% confidence interval = 5912.592323551904, 5933.657676448096
+=> FAILED       32       180816 (470.9x)
+mean                    = 5927.25
+stddev                  = 133.38466210590474
+95% confidence interval = 5921.803459630675, 5932.696540369325
+mean                    = 5916.140625
+stddev                  = 134.80825503284285
+95% confidence interval = 5912.012122189619, 5920.269127810381
+=> FAILED       64       180944 (282.7x)
+mean                    = 5916.34375
+stddev                  = 159.59856404346763
+95% confidence interval = 5913.085279317446, 5919.602220682554
+mean                    = 5932.2578125
+stddev                  = 173.30875666086422
+95% confidence interval = 5929.60402216363, 5934.91160283637
+=> FAILED      128       181200 (157.3x)
+mean                    = 5944.59375
+stddev                  = 166.9363347387888
+95% confidence interval = 5942.889608249541, 5946.297891750459
+mean                    = 5923.7578125
+stddev                  = 175.05787260861734
+95% confidence interval = 5922.4175256628405, 5925.0980993371595
+mean                    = 5930.075
+stddev                  = 163.90660043973708
+95% confidence interval = 5929.071072072306, 5931.078927927693
+mean                    = 5918.255208333333
+stddev                  = 155.16588436228622
+95% confidence interval = 5917.463215798567, 5919.047200868099
+mean                    = 5922.002232142857
+stddev                  = 151.10459063325183
+95% confidence interval = 5921.341149558836, 5922.663314726878
+mean                    = 5923.05859375
+stddev                  = 156.6230485558201
+95% confidence interval = 5922.459021142247, 5923.658166357753
+==> 0/4 tests passed
+
+
+If you failed this test, it may be because you are holding an unnecessary
+referene to a (large) Percolation object in an instance variable. Would
+storing it in a local variable suffice?
+
+
+Estimated student memory = 4.00 T + 180688.00   (R^2 = 1.000)
+
+Total: 0/4 tests passed!
+
+================================================================
+
+
+
+******************************************************************************
+*  MEMORY
+******************************************************************************
+
+Computing memory of Percolation
+*-----------------------------------------------------------
+Running 4 total tests.
+
+Test 1a-1d: Check that total memory <= 17 n^2 + 128 n + 1024 bytes
+
+                 n        bytes
+--------------------------------------------
+=> passed       64        71968         
+=> passed      256      1122592         
+=> passed      512      4473120         
+=> passed     1024     17858848         
+==> 4/4 tests passed
+
+
+Estimated student memory = 17.00 n^2 + 32.00 n + 288.00   (R^2 = 1.000)
+
+
+Test 2 (bonus): Check that total memory <= 11 n^2 + 128 n + 1024 bytes
+   -  failed memory test for n = 64
+==> FAILED
+
+
+Total: 4/4 tests passed!
+
+================================================================
+
+
+
+******************************************************************************
+*  TIMING
+******************************************************************************
+
+Timing Percolation
+*-----------------------------------------------------------
+Running 9 total tests.
+
+Test 1a-1e: Create an n-by-n percolation system; open sites at random until
+            the system percolates. Count calls to connected(), union() and
+            find() in WeightedQuickUnionUF.
+                                                 2 * connected()
+                 n   seconds       union()              + find()        constructor
+---------------------------------------------------------------------------------------------
+=> passed        8     0.00          124                   268                   2         
+=> passed       32     0.00         1501                  3196                   2         
+=> passed      128     0.01        22515                 48522                   2         
+=> passed      512     0.05       370380                791596                   2         
+=> passed     1024     0.16      1457240               3108626                   2         
+==> 5/5 tests passed
+
+Running time in seconds depends on the machine on which the script runs,
+and  varies each time that you submit. If one of the values in the table
+violates the performance limits, the factor by which you failed the test
+appears in parentheses. For example, (9.6x) in the union() column
+indicates that it uses 9.6x too many calls.
+
+
+Tests 2a-2d: Check whether number of calls to union(), connected(), and find()
+             is a constant per call to open(), isFull(), and percolates().
+             The table shows the maximum number of union(), connected(), and
+             find() calls made during a single call to open(), isFull(), and
+             percolates().
+
+                 n     per open()      per isOpen()    per isFull()    per percolates() 
+---------------------------------------------------------------------------------------------
+=> passed       32        8               0               2               1         
+=> passed      128        8               0               2               1         
+=> passed      512        8               0               2               1         
+=> passed     1024        8               0               2               1         
+==> 4/4 tests passed
+
+Total: 9/9 tests passed!
+
+================================================================
+
